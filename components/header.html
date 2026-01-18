@@ -1,11 +1,10 @@
 <style>
     /* --- СТИЛИ ШАПКИ (Локальные) --- */
     .header-card {
-        min-height: 160px; /* Компактная высота */
+        min-height: 160px;
         align-items: center;
         justify-content: center;
         padding: 20px 40px;
-        /* Градиент шапки */
         background: linear-gradient(180deg, rgba(30, 30, 30, 0.85) 0%, rgba(10, 10, 10, 0.95) 100%);
     }
 
@@ -13,6 +12,7 @@
         display: flex;
         width: 100%;
         align-items: center;
+        justify-content: center;
         gap: 40px;
         position: relative;
         z-index: 4;
@@ -20,18 +20,37 @@
 
     .header-col-logo {
         flex: 0 0 auto;
+        /* Сдвиг влево, как вы просили ранее */
+        transform: translateX(-10%);
+        transition: transform 0.4s ease;
     }
 
-    /* Логотип */
+    /* ССЫЛКА-ОБЕРТКА ЛОГОТИПА */
+    .logo-link {
+        display: block;
+        transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    /* ЛОГОТИП */
     .main-logo-img {
-        max-width: 180px;
-        filter: drop-shadow(0 0 15px rgba(0,0,0,0.5));
-        transition: 0.3s;
+        max-width: 240px;
+        /* Базовая тень (легкое желтоватое свечение в покое) */
+        filter: drop-shadow(0 0 15px rgba(255, 238, 0, 0.15));
+        transition: filter 0.4s ease;
     }
 
+    /* --- ЭФФЕКТ СИЯНИЯ (КАК В JANPRO, НО ЖЕЛТЫЙ) --- */
     .logo-link:hover .main-logo-img {
-        filter: drop-shadow(0 0 25px rgba(255,238,0,0.3));
-        transform: scale(1.02);
+        /* Многослойная тень: Белое ядро -> Яркий желтый центр -> Широкое рассеивание */
+        filter:
+                drop-shadow(0 0 5px rgba(255, 255, 255, 1))       /* Белый накал */
+                drop-shadow(0 0 15px rgba(255, 238, 0, 0.8))      /* Яркий желтый */
+                drop-shadow(0 0 35px rgba(255, 238, 0, 0.4));     /* Внешнее свечение */
+    }
+
+    .logo-link:hover {
+        /* Легкое увеличение при наведении */
+        transform: scale(1.05);
     }
 
     /* Тексты */
@@ -45,7 +64,7 @@
     }
 
     .sp-desc {
-        color: var(--text-muted); /* Использует переменную из глобальных стилей */
+        color: var(--text-muted);
         font-size: 1rem;
         max-width: 500px;
         line-height: 1.4;
@@ -61,6 +80,10 @@
             flex-direction: column;
             text-align: center;
             gap: 20px;
+        }
+        .header-col-logo {
+            /* Сбрасываем сдвиг на мобильных, чтобы было по центру */
+            transform: none;
         }
         .sp-title {
             font-size: 2.2rem;
