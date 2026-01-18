@@ -24,15 +24,50 @@
 
     <div id="menu-container"></div>
 
-    <div class="card about-section" style="text-align: left; padding: 40px;">
-        <h2 style="font-size: 2rem; margin-bottom: 20px;">Инженерный стандарт</h2>
-        <p style="color: #ccc; font-size: 1.1rem; line-height: 1.6;">
-            <b>Стройплощадка</b> — это специализированное производство низковольтных комплектных устройств (НКУ).
-            Мы убрали всё лишнее, оставив только надежность, ГОСТ и качественные комплектующие.
-            Сборка щитов для квартир, коттеджей и коммерческих помещений.
-        </p>
-        <a href="projects.html" class="arrow-icon" style="opacity: 1; position: relative; bottom: auto; right: auto; margin-top: 20px; display: inline-block; color: #FFEE00;">
-            Смотреть проекты ➔
+    <div class="card about-section">
+        <div class="about-top">
+            <div class="about-intro">
+                <div class="about-title-row">
+                    <div class="title-icon-wrap">
+                        <svg class="title-img" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="appleSilverGradWho" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#FFFFFF" />
+                                    <stop offset="100%" style="stop-color:#C0C8D8" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="5" y="4" width="14" height="18" rx="3" fill="url(#appleSilverGradWho)"/>
+                            <rect x="10" y="2" width="4" height="3" rx="1" fill="url(#appleSilverGradWho)"/>
+                            <circle cx="12" cy="10" r="2.5" fill="#080808" opacity="0.15"/>
+                            <path d="M12 13.5C10.5 13.5 9.15 14.1 8.5 15C9.2 16.2 10.5 17 12 17C13.5 17 14.8 16.2 15.5 15C14.85 14.1 13.5 13.5 12 13.5Z" fill="#080808" opacity="0.15"/>
+                            <rect x="8" y="18" width="8" height="1.5" rx="0.75" fill="#080808" opacity="0.2"/>
+                        </svg>
+                    </div>
+                    <h2>Кто мы?</h2>
+                </div>
+                <p class="about-slogan">
+                    Специализированное производство низковольтных комплектных устройств (НКУ). Инженерный стандарт качества.
+                </p>
+            </div>
+
+            <div class="about-video" onclick="loadVideo(this)" data-youtube-id="jnlh-k3zs6E">
+                <div class="video-cover">
+                    <img src="https://img.youtube.com/vi/jnlh-k3zs6E/maxresdefault.jpg" alt="Чем занимается наша команда">
+                    <div class="custom-play-btn">▶</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="about-description">
+            <p>
+                <b>Стройплощадка</b> — мы убрали всё лишнее, оставив только надежность, ГОСТ и качественные комплектующие.
+                Профессиональная сборка щитов для квартир, коттеджей и коммерческих помещений, а также щиты с системами "Умный дом".
+            </p>
+        </div>
+
+        <a href="team.html" class="about-team-link">
+            <span class="about-team-text">Познакомиться с командой</span>
+            <div class="arrow-icon">➔</div>
         </a>
     </div>
 
@@ -81,6 +116,29 @@
 </script>
 
 <script>
+    // --- ОБНОВЛЕННЫЙ СКРИПТ ДЛЯ YOUTUBE ---
+    function loadVideo(element) {
+        // Берем ID видео из атрибута
+        const id = element.getAttribute('data-youtube-id');
+
+        // Создаем iframe для YouTube
+        const iframe = document.createElement('iframe');
+        // ?autoplay=1 - запускает видео сразу
+        // &rel=0 - не показывать похожие видео с чужих каналов в конце
+        iframe.setAttribute('src', `https://www.youtube.com/embed/${id}?autoplay=1&rel=0`);
+        iframe.setAttribute('width', '100%');
+        iframe.setAttribute('height', '100%');
+        iframe.setAttribute('frameborder', '0');
+        // Разрешения, необходимые для плеера YouTube
+        iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+        iframe.setAttribute('allowfullscreen', '');
+
+        // Очищаем контейнер от обложки и кнопки Play, вставляем плеер
+        element.innerHTML = '';
+        element.appendChild(iframe);
+    }
+
+    // СКРИПТ ПРОЖЕКТОРА (Без изменений)
     document.addEventListener("DOMContentLoaded", function() {
         const cards = document.querySelectorAll(".card");
         cards.forEach((card) => {

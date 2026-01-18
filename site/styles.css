@@ -2,10 +2,10 @@
 :root {
     --bg-base: #080808;
     --card-bg: rgba(20, 20, 20, 0.6); /* Чуть прозрачнее для эффекта стекла */
-    --border-color: rgba(255, 255, 255, 0.12); /* Базовая рамка как в примере */
+    --border-color: rgba(255, 255, 255, 0.12); /* Базовая рамка */
     --accent: #FFEE00;            /* Safety Yellow */
     --text-main: #ffffff;
-    --text-muted: #c0c0c0;        /* Цвет текста как в примере */
+    --text-muted: #c0c0c0;        /* Цвет текста */
     --radius: 24px;
 }
 
@@ -38,7 +38,7 @@ a { text-decoration: none; color: inherit; display: block; }
     background-image: url('img/logo.png');
     background-repeat: repeat;
     background-size: 300px auto;
-    opacity: 0.15; /* Чуть приглушили для стиля стекла */
+    opacity: 0.15;
     background-position: center top;
     transform: rotate(-10deg);
     z-index: 0;
@@ -46,7 +46,7 @@ a { text-decoration: none; color: inherit; display: block; }
 
 .bg-overlay {
     position: absolute; inset: 0;
-    /* Градиент как в примере (сверху вниз), но адаптированный под черный */
+    /* Градиент сверху вниз: желтоватый свет -> черный */
     background: radial-gradient(circle at 50% 0%, rgba(255, 238, 0, 0.05) 0%, transparent 60%),
     linear-gradient(180deg, rgba(0,0,0,0.6) 0%, #080808 100%);
     z-index: 2;
@@ -60,20 +60,20 @@ a { text-decoration: none; color: inherit; display: block; }
 }
 
 /* ========================================= */
-/* --- КАРТОЧКИ (СТИЛЬ JANPRO) --- */
+/* --- ЕДИНЫЙ СТИЛЬ КАРТОЧЕК (GLASS) --- */
 /* ========================================= */
 .card {
     background: var(--card-bg);
     border: 1px solid var(--border-color);
     border-radius: var(--radius);
-    padding: 25px; /* Как в примере */
+    padding: 25px;
     position: relative;
 
     /* Эффект матового стекла (Blur 40px) */
     backdrop-filter: blur(40px) saturate(120%);
     -webkit-backdrop-filter: blur(40px) saturate(120%);
 
-    /* Сложные тени как в примере */
+    /* Сложные тени */
     box-shadow:
             0 20px 40px rgba(0, 0, 0, 0.5),
             inset 0 1px 0 rgba(255, 255, 255, 0.15),
@@ -89,10 +89,9 @@ a { text-decoration: none; color: inherit; display: block; }
     display: flex; flex-direction: column; align-items: center; justify-content: center;
 }
 
-/* --- ПРОЖЕКТОР --- */
+/* --- ПРОЖЕКТОР (БЕЛЫЙ) --- */
 .card::before {
     content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: inherit;
-    /* Белый свет, как просили ранее */
     background: radial-gradient(
             600px circle at var(--mouse-x) var(--mouse-y),
             rgba(255, 255, 255, 0.08),
@@ -103,18 +102,18 @@ a { text-decoration: none; color: inherit; display: block; }
 .card:hover::before { opacity: 1; }
 
 /* --- ХОВЕР ЭФФЕКТ (СВЕЧЕНИЕ СНИЗУ) --- */
-a.card:hover, .social-btn:hover {
+a.card:hover, .social-btn:hover, .about-video:hover {
     border-color: var(--accent); /* Желтая рамка */
     transform: translateY(-4px); /* Легкий подъем */
 
     /* Желтое свечение снизу (Ambient Light) */
     box-shadow:
-            0 15px 35px rgba(255, 238, 0, 0.2), /* Желтый свет */
+            0 15px 35px rgba(255, 238, 0, 0.2),
             inset 0 1px 0 rgba(255, 255, 255, 0.2),
             inset 0 0 30px rgba(255, 238, 0, 0.05);
 
     z-index: 10;
-    background: rgba(30, 25, 10, 0.6); /* Теплый оттенок при наведении */
+    background: rgba(30, 25, 10, 0.6); /* Теплый оттенок */
 }
 
 .accent-text { color: var(--accent); }
@@ -125,7 +124,7 @@ a.card:hover, .social-btn:hover {
     font-size: 1.2rem; color: #fff; opacity: 0.3;
     transition: all 0.3s ease; z-index: 5;
 }
-a.card:hover .arrow-icon {
+a.card:hover .arrow-icon, .about-team-link:hover .arrow-icon {
     opacity: 1; color: var(--accent);
     transform: translateX(5px);
     text-shadow: 0 0 15px rgba(255, 238, 0, 0.8);
@@ -145,9 +144,74 @@ a.card:hover .arrow-icon {
 .btn-icon-img { width: 24px; height: 24px; object-fit: contain; }
 
 /* ========================================= */
+/* --- БЛОК "КТО МЫ" (Специфические стили) --- */
+/* ========================================= */
+.about-section {
+    align-items: flex-start; text-align: left;
+    gap: 20px; padding: 30px 30px 70px 30px; /* Отступ снизу для ссылки */
+}
+
+.about-top { display: flex; flex-direction: row; width: 100%; gap: 25px; min-height: 220px; position: relative; z-index: 4; }
+.about-intro { flex: 1; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; text-align: center; padding-top: 15px; }
+
+.about-title-row { display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 15px; }
+.title-icon-wrap { width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; }
+.title-img { width: 100%; height: 100%; object-fit: contain; transform: rotate(-5deg); transition: transform 0.3s; }
+.about-section:hover .title-img { transform: rotate(0deg) scale(1.1); }
+.about-intro h2 { font-size: 2rem; margin: 0; color: #fff; }
+
+.about-slogan { font-size: 1.15rem; line-height: 1.5; color: var(--text-muted); font-weight: 500; }
+
+/* Видео превью */
+.about-video {
+    flex: 1; border-radius: 16px; overflow: hidden;
+    background: rgba(0,0,0,0.4); border: 1px solid var(--border-color);
+    min-height: 220px; padding: 10px; cursor: pointer; position: relative;
+    transition: all 0.3s;
+}
+.video-cover { width: 100%; height: 100%; position: relative; border-radius: 8px; overflow: hidden; }
+.video-cover img { width: 100%; height: 100%; object-fit: cover; opacity: 0.9; transition: opacity 0.3s; }
+.about-video:hover .video-cover img { opacity: 0.8; }
+
+/* Кнопка Play */
+.custom-play-btn {
+    position: absolute; bottom: 20px; right: 20px;
+    font-size: 24px; color: #fff; width: 60px; height: 60px;
+    background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; padding-left: 4px;
+    transition: all 0.3s;
+}
+.about-video:hover .custom-play-btn {
+    background: rgba(255, 238, 0, 0.2); border-color: var(--accent);
+    box-shadow: 0 0 20px rgba(255, 238, 0, 0.4); transform: scale(1.1);
+    color: var(--accent);
+}
+
+/* Описание снизу */
+.about-description {
+    width: 100%; border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 25px;
+    color: var(--text-muted); font-size: 1.05rem; line-height: 1.7; position: relative; z-index: 4;
+}
+.about-description b { color: #fff; }
+
+/* Ссылка на команду */
+.about-team-link {
+    position: absolute; bottom: 25px; right: 25px;
+    display: flex; align-items: center; gap: 10px;
+    text-decoration: none; z-index: 10; transition: all 0.3s ease;
+}
+.about-team-text {
+    font-size: 1rem; font-weight: 700; color: rgba(255, 255, 255, 0.5);
+    transition: color 0.3s ease;
+}
+.about-team-link .arrow-icon { position: static; opacity: 0.5; color: #fff; transition: all 0.3s; }
+.about-team-link:hover .about-team-text { color: var(--accent); }
+
+/* ========================================= */
 /* --- ACTION CARDS --- */
 /* ========================================= */
-.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; } /* Gap 15px как в примере */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
 
 .action-card {
     min-height: 160px; gap: 25px;
@@ -183,4 +247,9 @@ a.card:hover .action-img { transform: scale(1.15) rotate(10deg); }
 @media (max-width: 900px) {
     .grid-menu, .grid-2 { grid-template-columns: 1fr; }
     .action-card { padding: 20px; min-height: auto; }
+
+    /* Адаптив для блока "Кто мы" */
+    .about-top { flex-direction: column; }
+    .about-video { min-height: 250px; width: 100%; }
+    .about-intro { padding-top: 0; }
 }
