@@ -5,6 +5,7 @@
         align-items: center;
         justify-content: center;
         padding: 20px 40px;
+        /* Градиент шапки */
         background: linear-gradient(180deg, rgba(30, 30, 30, 0.85) 0%, rgba(10, 10, 10, 0.95) 100%);
     }
 
@@ -20,9 +21,14 @@
 
     .header-col-logo {
         flex: 0 0 auto;
-        /* Сдвиг влево, как вы просили ранее */
-        transform: translateX(-10%);
+        /* Сдвиг влево на 15%, как вы установили */
+        transform: translateX(-15%);
         transition: transform 0.4s ease;
+    }
+
+    /* --- НОВОЕ: Центрируем текстовый блок --- */
+    .header-col-text {
+        text-align: center;
     }
 
     /* ССЫЛКА-ОБЕРТКА ЛОГОТИПА */
@@ -39,9 +45,8 @@
         transition: filter 0.4s ease;
     }
 
-    /* --- ЭФФЕКТ СИЯНИЯ (КАК В JANPRO, НО ЖЕЛТЫЙ) --- */
+    /* --- ЭФФЕКТ СИЯНИЯ (ЖЕЛТЫЙ) --- */
     .logo-link:hover .main-logo-img {
-        /* Многослойная тень: Белое ядро -> Яркий желтый центр -> Широкое рассеивание */
         filter:
                 drop-shadow(0 0 5px rgba(255, 255, 255, 1))       /* Белый накал */
                 drop-shadow(0 0 15px rgba(255, 238, 0, 0.8))      /* Яркий желтый */
@@ -64,10 +69,13 @@
     }
 
     .sp-desc {
-        color: var(--text-muted);
+        /* --- НОВОЕ: Желтый цвет для описания --- */
+        color: var(--accent);
         font-size: 1rem;
         max-width: 500px;
         line-height: 1.4;
+        /* Добавляем auto margin, чтобы блок центрировался, если он уже чем родитель */
+        margin: 0 auto;
     }
 
     /* АДАПТИВНОСТЬ ШАПКИ */
