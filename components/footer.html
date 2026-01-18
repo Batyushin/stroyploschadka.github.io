@@ -1,15 +1,152 @@
+<style>
+    /* --- СТИЛИ ПОДВАЛА (Локальные) --- */
+    .footer-card {
+        min-height: 100px;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        /* Убираем верхнюю границу, как договаривались */
+        border-top: none;
+        /* Градиент в прозрачность (дорогой стиль) */
+        background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(20, 20, 20, 0.8) 100%);
+        box-shadow: 0 -20px 40px rgba(0,0,0,0.5);
+    }
+
+    .footer-left {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+        position: relative;
+        z-index: 4;
+    }
+
+    .copyright-wrap {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    /* Мини-логотип в футере (если нужен) */
+    .footer-mini-logo {
+        width: 24px;
+        height: 24px;
+        object-fit: contain;
+        filter: drop-shadow(0 0 5px rgba(255, 238, 0, 0.3));
+    }
+
+    .copyright {
+        font-weight: 700;
+        color: #fff;
+        font-size: 1rem;
+    }
+
+    .footer-sub {
+        color: #666;
+        font-size: 0.8rem;
+    }
+
+    .footer-right {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 10px;
+        position: relative;
+        z-index: 4;
+    }
+
+    /* --- ССЫЛКИ (Оферта и пр.) --- */
+    .footer-links-row {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 5px;
+    }
+    .footer-links-row a {
+        color: var(--text-muted); /* Серый по умолчанию */
+        font-size: 0.85rem;
+        transition: 0.2s;
+        text-decoration: none;
+    }
+    .footer-links-row a:hover {
+        color: var(--accent); /* Желтый при наведении */
+        text-shadow: 0 0 10px rgba(255, 238, 0, 0.3);
+    }
+
+    /* --- ССЫЛКА РАЗРАБОТЧИКА (ReD from Lugansk) --- */
+    .designer-link {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2px;
+        font-size: 0.75rem;
+        color: #666;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-weight: 700;
+        line-height: 1.1;
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+    .designer-link:hover {
+        color: #fff;
+        transform: translateY(-2px);
+    }
+
+    /* Красный неон для ReD */
+    .designer-link .red-neon-text {
+        color: #FF0000 !important; /* Ярко-красный */
+        font-weight: 900;
+        font-size: 0.85rem;
+        letter-spacing: 1px;
+        text-transform: none;
+        text-shadow: 0 0 8px rgba(255, 0, 0, 0.5);
+        transition: all 0.3s ease;
+    }
+    .designer-link:hover .red-neon-text {
+        text-shadow: 0 0 15px rgba(255, 0, 0, 0.8), 0 0 30px rgba(255, 0, 0, 0.4);
+        transform: scale(1.05);
+    }
+
+    /* Нижняя строка from Lugansk */
+    .city-text {
+        text-transform: none !important;
+        font-weight: 400 !important;
+        font-size: 0.6rem !important;
+        color: #444 !important;
+        letter-spacing: 0.5px !important;
+        transition: color 0.3s;
+    }
+    .designer-link:hover .city-text {
+        color: #888 !important;
+    }
+
+    /* --- АДАПТИВНОСТЬ --- */
+    @media (max-width: 900px) {
+        .footer-card {
+            flex-direction: column;
+            gap: 25px;
+            text-align: center;
+        }
+        .footer-left, .footer-right, .copyright-wrap {
+            align-items: center;
+            justify-content: center;
+        }
+    }
+</style>
+
 <footer class="card footer-card">
     <div class="footer-left">
         <div class="copyright-wrap">
-            <span class="copyright">© 2026 Стройплощадка<span class="accent-text">.</span></span>
+            <span class="copyright">© 2026 Стройплощадка<span class="accent-text">.ru</span></span>
         </div>
-        <span class="footer-sub" style="color: #666; font-size: 0.8rem;">Электрощиты нового времени</span>
+        <span class="footer-sub">Электрощиты нового времени</span>
     </div>
 
     <div class="footer-right">
-        <div class="footer-links-row" style="display: flex; gap: 20px; margin-bottom: 5px;">
-            <a href="#" style="color: #666; font-size: 0.85rem;">Оферта</a>
-            <a href="#" style="color: #666; font-size: 0.85rem;">Реквизиты</a>
+        <div class="footer-links-row">
+            <a href="#">Оферта</a>
+            <a href="#">Конфиденциальность</a>
         </div>
 
         <a href="https://batyushin.ru" target="_blank" class="designer-link">
