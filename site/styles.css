@@ -1,6 +1,7 @@
 /* --- ПЕРЕМЕННЫЕ --- */
 :root {
     --bg-base: #080808;
+    /* Фон карточки: почти прозрачный, нейтральный */
     --card-bg: rgba(255, 255, 255, 0.02);
     --border-color: rgba(255, 255, 255, 0.12);
     --accent: #FFEE00;            /* Safety Yellow */
@@ -44,21 +45,17 @@ a { text-decoration: none; color: inherit; display: block; }
     z-index: 0;
 }
 
-/* --- ИЗМЕНЕНИЕ: ДОБАВИЛИ ЖЕЛТЫЙ ГРАДИЕНТ --- */
+/* --- ИЗМЕНЕНИЕ: Убрали желтый, вернули нейтральный свет --- */
 .bg-overlay {
     position: absolute; inset: 0;
     background:
-        /* 1. Верхний золотой свет (ярче и шире) */
-            radial-gradient(circle at 50% -10%, rgba(255, 238, 0, 0.15) 0%, transparent 60%),
-
-                /* 2. Нижний золотой туман (для объема) */
-            radial-gradient(circle at 50% 110%, rgba(255, 238, 0, 0.1) 0%, transparent 50%),
-
-                /* 3. Затемнение к краям (виньетка) */
-            radial-gradient(circle at 50% 50%, transparent 20%, #080808 100%);
+        /* Нейтральный белый свет сверху (вместо желтого) */
+            radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.07) 0%, transparent 60%),
+                /* Затемнение к низу */
+            linear-gradient(180deg, rgba(0,0,0,0.5) 0%, #080808 100%);
 
     z-index: 2;
-    pointer-events: none; /* Чтобы клики проходили сквозь градиент */
+    pointer-events: none;
 }
 
 /* --- КОНТЕЙНЕР --- */
@@ -69,7 +66,7 @@ a { text-decoration: none; color: inherit; display: block; }
 }
 
 /* ========================================= */
-/* --- КАРТОЧКИ (ICE + NEON) --- */
+/* --- КАРТОЧКИ (ЧИСТОЕ СТЕКЛО) --- */
 /* ========================================= */
 .card {
     background: var(--card-bg);
@@ -78,14 +75,14 @@ a { text-decoration: none; color: inherit; display: block; }
     padding: 25px;
     position: relative;
 
-    /* Эффект льда */
-    backdrop-filter: blur(60px) saturate(160%);
-    -webkit-backdrop-filter: blur(60px) saturate(160%);
+    /* Эффект стекла: блюр 15px (чтобы фон был виден, но размыт) */
+    backdrop-filter: blur(15px) saturate(120%);
+    -webkit-backdrop-filter: blur(15px) saturate(120%);
 
-    /* Тени */
+    /* Холодные стеклянные блики */
     box-shadow:
             0 20px 40px rgba(0, 0, 0, 0.6),
-            inset 0 1px 0 rgba(255, 255, 255, 0.2),
+            inset 0 1px 0 rgba(255, 255, 255, 0.15),
             inset 0 -1px 0 rgba(0, 0, 0, 0.4);
 
     overflow: hidden;
@@ -98,7 +95,7 @@ a { text-decoration: none; color: inherit; display: block; }
     display: flex; flex-direction: column; align-items: center; justify-content: center;
 }
 
-/* --- ПРОЖЕКТОР --- */
+/* --- ПРОЖЕКТОР (БЕЛЫЙ) --- */
 .card::before {
     content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: inherit;
     background: radial-gradient(
@@ -110,19 +107,22 @@ a { text-decoration: none; color: inherit; display: block; }
 }
 .card:hover::before { opacity: 1; }
 
-/* --- ХОВЕР ЭФФЕКТ --- */
+/* --- ХОВЕР ЭФФЕКТ (ЖЕЛТЫЙ НЕОН) --- */
 a.card:hover, .social-btn:hover, .about-video:hover {
     border-color: var(--accent);
     transform: translateY(-5px);
 
+    /* Здесь желтый остается, как акцент при взаимодействии */
     box-shadow:
             0 30px 60px rgba(0, 0, 0, 0.9),
-            0 20px 50px -5px rgba(255, 238, 0, 0.35), /* Неон снизу */
-            inset 0 -20px 40px -10px rgba(255, 238, 0, 0.15), /* Свечение внутри */
+            0 20px 50px -5px rgba(255, 238, 0, 0.35), /* Желтый свет снизу */
+            inset 0 -20px 40px -10px rgba(255, 238, 0, 0.1), /* Легкий рефлекс внутри */
             inset 0 1px 0 rgba(255, 255, 255, 0.5);
 
     z-index: 10;
-    background: rgba(30, 30, 30, 0.5);
+
+    /* При наведении чуть затемняем стекло для контраста */
+    background: rgba(20, 20, 20, 0.4);
 }
 
 .accent-text { color: var(--accent); }
@@ -250,7 +250,7 @@ a.card:hover .action-img { transform: scale(1.15) rotate(10deg); }
 /* --- МОБИЛЬНЫЕ СТИЛИ --- */
 /* ========================================= */
 @media (max-width: 900px) {
-    /* Фон для мобильных: уменьшенный паттерн */
+    /* Фон для мобильных */
     .bg-pattern { background-size: 150px auto; opacity: 0.20; }
 
     .grid-menu, .grid-2 { grid-template-columns: 1fr; }
