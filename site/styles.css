@@ -1,7 +1,6 @@
 /* --- ПЕРЕМЕННЫЕ --- */
 :root {
     --bg-base: #080808;
-    /* Очень прозрачный фон для эффекта льда */
     --card-bg: rgba(255, 255, 255, 0.02);
     --border-color: rgba(255, 255, 255, 0.12);
     --accent: #FFEE00;            /* Safety Yellow */
@@ -38,21 +37,28 @@ a { text-decoration: none; color: inherit; display: block; }
     inset: -50%; width: 200%; height: 200%;
     background-image: url('img/logo.png');
     background-repeat: repeat;
-
-    /* Десктоп: крупные логотипы */
     background-size: 300px auto;
     opacity: 0.15;
-
     background-position: center top;
     transform: rotate(-10deg);
     z-index: 0;
 }
 
+/* --- ИЗМЕНЕНИЕ: ДОБАВИЛИ ЖЕЛТЫЙ ГРАДИЕНТ --- */
 .bg-overlay {
     position: absolute; inset: 0;
-    background: radial-gradient(circle at 50% 0%, rgba(255, 238, 0, 0.05) 0%, transparent 60%),
-    linear-gradient(180deg, rgba(0,0,0,0.6) 0%, #080808 100%);
+    background:
+        /* 1. Верхний золотой свет (ярче и шире) */
+            radial-gradient(circle at 50% -10%, rgba(255, 238, 0, 0.15) 0%, transparent 60%),
+
+                /* 2. Нижний золотой туман (для объема) */
+            radial-gradient(circle at 50% 110%, rgba(255, 238, 0, 0.1) 0%, transparent 50%),
+
+                /* 3. Затемнение к краям (виньетка) */
+            radial-gradient(circle at 50% 50%, transparent 20%, #080808 100%);
+
     z-index: 2;
+    pointer-events: none; /* Чтобы клики проходили сквозь градиент */
 }
 
 /* --- КОНТЕЙНЕР --- */
@@ -72,15 +78,15 @@ a { text-decoration: none; color: inherit; display: block; }
     padding: 25px;
     position: relative;
 
-    /* Эффект льда: сильное размытие */
+    /* Эффект льда */
     backdrop-filter: blur(60px) saturate(160%);
     -webkit-backdrop-filter: blur(60px) saturate(160%);
 
-    /* Тени в спокойном состоянии (холодные) */
+    /* Тени */
     box-shadow:
             0 20px 40px rgba(0, 0, 0, 0.6),
-            inset 0 1px 0 rgba(255, 255, 255, 0.2),  /* Блик сверху */
-            inset 0 -1px 0 rgba(0, 0, 0, 0.4);       /* Тень снизу */
+            inset 0 1px 0 rgba(255, 255, 255, 0.2),
+            inset 0 -1px 0 rgba(0, 0, 0, 0.4);
 
     overflow: hidden;
 
@@ -92,7 +98,7 @@ a { text-decoration: none; color: inherit; display: block; }
     display: flex; flex-direction: column; align-items: center; justify-content: center;
 }
 
-/* --- ПРОЖЕКТОР (БЕЛЫЙ) --- */
+/* --- ПРОЖЕКТОР --- */
 .card::before {
     content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: inherit;
     background: radial-gradient(
@@ -104,30 +110,18 @@ a { text-decoration: none; color: inherit; display: block; }
 }
 .card:hover::before { opacity: 1; }
 
-/* --- ХОВЕР ЭФФЕКТ (НЕОН) --- */
+/* --- ХОВЕР ЭФФЕКТ --- */
 a.card:hover, .social-btn:hover, .about-video:hover {
-    /* 1. Яркая желтая рамка */
     border-color: var(--accent);
-
     transform: translateY(-5px);
 
-    /* 2. ТЕНИ И СВЕЧЕНИЕ */
     box-shadow:
-        /* Глубокая черная тень для отрыва от фона */
             0 30px 60px rgba(0, 0, 0, 0.9),
-
-                /* 🔥 НЕОН СНИЗУ (Яркий и широкий) */
-            0 20px 50px -5px rgba(255, 238, 0, 0.35),
-
-                /* 🔥 ВНУТРЕННЕЕ СВЕЧЕНИЕ (Желтый свет внутри стекла снизу) */
-            inset 0 -20px 40px -10px rgba(255, 238, 0, 0.15),
-
-                /* Белый блик сверху (оставляет эффект стекла) */
+            0 20px 50px -5px rgba(255, 238, 0, 0.35), /* Неон снизу */
+            inset 0 -20px 40px -10px rgba(255, 238, 0, 0.15), /* Свечение внутри */
             inset 0 1px 0 rgba(255, 255, 255, 0.5);
 
     z-index: 10;
-
-    /* Чуть затемняем фон, чтобы неон был контрастнее */
     background: rgba(30, 30, 30, 0.5);
 }
 
@@ -143,7 +137,6 @@ a.card:hover, .social-btn:hover, .about-video:hover {
 a.card:hover .arrow-icon, .about-team-link:hover .arrow-icon {
     opacity: 1; color: var(--accent);
     transform: translateX(5px);
-    /* Стрелка тоже горит неоном */
     text-shadow: 0 0 15px rgba(255, 238, 0, 0.8);
 }
 
@@ -179,7 +172,6 @@ a.card:hover .arrow-icon, .about-team-link:hover .arrow-icon {
 
 .about-slogan { font-size: 1.15rem; line-height: 1.5; color: var(--text-muted); font-weight: 500; }
 
-/* Видео превью */
 .about-video {
     flex: 1; border-radius: 16px; overflow: hidden;
     background: rgba(0,0,0,0.2); border: 1px solid var(--border-color);
@@ -190,7 +182,6 @@ a.card:hover .arrow-icon, .about-team-link:hover .arrow-icon {
 .video-cover img { width: 100%; height: 100%; object-fit: cover; opacity: 0.9; transition: opacity 0.3s; }
 .about-video:hover .video-cover img { opacity: 0.8; }
 
-/* Кнопка Play */
 .custom-play-btn {
     position: absolute; bottom: 20px; right: 20px;
     font-size: 24px; color: #fff; width: 60px; height: 60px;
@@ -205,14 +196,12 @@ a.card:hover .arrow-icon, .about-team-link:hover .arrow-icon {
     color: var(--accent);
 }
 
-/* Описание */
 .about-description {
     width: 100%; border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 25px;
     color: var(--text-muted); font-size: 1.05rem; line-height: 1.7; position: relative; z-index: 4;
 }
 .about-description b { color: #fff; }
 
-/* Ссылка на команду */
 .about-team-link {
     position: absolute; bottom: 25px; right: 25px;
     display: flex; align-items: center; gap: 10px;
@@ -246,7 +235,6 @@ a.card:hover .arrow-icon, .about-team-link:hover .arrow-icon {
 }
 .action-img { width: 36px; height: 36px; object-fit: contain; transition: transform 0.3s; }
 
-/* Ховер для иконки */
 a.card:hover .action-icon-wrap {
     border-color: var(--accent);
     background: rgba(255, 238, 0, 0.2);
@@ -259,14 +247,11 @@ a.card:hover .action-img { transform: scale(1.15) rotate(10deg); }
 .card-content p { color: var(--text-muted); font-size: 1rem; margin: 0; line-height: 1.4; }
 
 /* ========================================= */
-/* --- МОБИЛЬНЫЕ СТИЛИ (Общие) --- */
+/* --- МОБИЛЬНЫЕ СТИЛИ --- */
 /* ========================================= */
 @media (max-width: 900px) {
-    /* 1. Настройка фона для мобильных: логотипы меньше и ярче */
-    .bg-pattern {
-        background-size: 150px auto; /* Меньше размер, чтобы влезло больше лого */
-        opacity: 0.20; /* Чуть ярче, чтобы было видно */
-    }
+    /* Фон для мобильных: уменьшенный паттерн */
+    .bg-pattern { background-size: 150px auto; opacity: 0.20; }
 
     .grid-menu, .grid-2 { grid-template-columns: 1fr; }
     .action-card { padding: 20px; min-height: auto; }
