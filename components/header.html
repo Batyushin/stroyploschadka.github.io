@@ -1,10 +1,14 @@
 <style>
     /* --- СТИЛИ ШАПКИ (Локальные) --- */
     .header-card {
-        min-height: 160px;
+        /* ВЫСОТА И ОТСТУПЫ КАК У JANPRO */
+        min-height: 200px;
+        padding: 25px;
+
+        display: flex; /* Добавил display flex для самой карточки, чтобы контент центрировался вертикально */
         align-items: center;
         justify-content: center;
-        padding: 20px 40px;
+
         /* Градиент шапки */
         background: linear-gradient(180deg, rgba(30, 30, 30, 0.85) 0%, rgba(10, 10, 10, 0.95) 100%);
     }
@@ -21,12 +25,11 @@
 
     .header-col-logo {
         flex: 0 0 auto;
-        /* Сдвиг влево на 15%, как вы установили */
+        /* Сдвиг влево на 15% */
         transform: translateX(-15%);
         transition: transform 0.4s ease;
     }
 
-    /* --- НОВОЕ: Центрируем текстовый блок --- */
     .header-col-text {
         text-align: center;
     }
@@ -40,7 +43,6 @@
     /* ЛОГОТИП */
     .main-logo-img {
         max-width: 240px;
-        /* Базовая тень (легкое желтоватое свечение в покое) */
         filter: drop-shadow(0 0 15px rgba(255, 238, 0, 0.15));
         transition: filter 0.4s ease;
     }
@@ -48,13 +50,12 @@
     /* --- ЭФФЕКТ СИЯНИЯ (ЖЕЛТЫЙ) --- */
     .logo-link:hover .main-logo-img {
         filter:
-                drop-shadow(0 0 5px rgba(255, 255, 255, 1))       /* Белый накал */
-                drop-shadow(0 0 15px rgba(255, 238, 0, 0.8))      /* Яркий желтый */
-                drop-shadow(0 0 35px rgba(255, 238, 0, 0.4));     /* Внешнее свечение */
+                drop-shadow(0 0 5px rgba(255, 255, 255, 1))
+                drop-shadow(0 0 15px rgba(255, 238, 0, 0.8))
+                drop-shadow(0 0 35px rgba(255, 238, 0, 0.4));
     }
 
     .logo-link:hover {
-        /* Легкое увеличение при наведении */
         transform: scale(1.05);
     }
 
@@ -69,12 +70,10 @@
     }
 
     .sp-desc {
-        /* --- НОВОЕ: Желтый цвет для описания --- */
-        color: var(--accent);
+        color: var(--accent); /* Желтый цвет */
         font-size: 1rem;
         max-width: 500px;
         line-height: 1.4;
-        /* Добавляем auto margin, чтобы блок центрировался, если он уже чем родитель */
         margin: 0 auto;
     }
 
@@ -83,6 +82,7 @@
         .header-card {
             min-height: auto;
             padding: 30px 20px;
+            display: block; /* Сброс флекса на мобильных для нормального потока */
         }
         .header-content {
             flex-direction: column;
@@ -90,7 +90,6 @@
             gap: 20px;
         }
         .header-col-logo {
-            /* Сбрасываем сдвиг на мобильных, чтобы было по центру */
             transform: none;
         }
         .sp-title {
