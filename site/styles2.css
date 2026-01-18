@@ -1,0 +1,276 @@
+/* --- ПЕРЕМЕННЫЕ --- */
+:root {
+    --bg-base: #080808;
+    /* Очень прозрачный фон для эффекта льда */
+    --card-bg: rgba(255, 255, 255, 0.02);
+    --border-color: rgba(255, 255, 255, 0.12);
+    --accent: #FFEE00;            /* Safety Yellow */
+    --text-main: #ffffff;
+    --text-muted: #c0c0c0;
+    --radius: 24px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    background-color: transparent;
+    font-family: 'Roboto', sans-serif;
+    color: var(--text-main);
+    display: flex;
+    justify-content: center;
+    padding: 30px 15px;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+a { text-decoration: none; color: inherit; display: block; }
+
+/* ========================================= */
+/* --- ФОН --- */
+/* ========================================= */
+.bg-depth {
+    position: fixed; inset: 0; z-index: -1;
+    background-color: var(--bg-base);
+}
+
+.bg-pattern {
+    position: absolute;
+    inset: -50%; width: 200%; height: 200%;
+    background-image: url('img/logo.png');
+    background-repeat: repeat;
+
+    /* Десктоп: крупные логотипы */
+    background-size: 300px auto;
+    opacity: 0.15;
+
+    background-position: center top;
+    transform: rotate(-10deg);
+    z-index: 0;
+}
+
+.bg-overlay {
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at 50% 0%, rgba(255, 238, 0, 0.05) 0%, transparent 60%),
+    linear-gradient(180deg, rgba(0,0,0,0.6) 0%, #080808 100%);
+    z-index: 2;
+}
+
+/* --- КОНТЕЙНЕР --- */
+.container {
+    width: 100%; max-width: 1000px;
+    display: flex; flex-direction: column; gap: 20px;
+    position: relative; z-index: 1;
+}
+
+/* ========================================= */
+/* --- КАРТОЧКИ (ICE + NEON) --- */
+/* ========================================= */
+.card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 25px;
+    position: relative;
+
+    /* Эффект льда: сильное размытие */
+    backdrop-filter: blur(60px) saturate(160%);
+    -webkit-backdrop-filter: blur(60px) saturate(160%);
+
+    /* Тени в спокойном состоянии (холодные) */
+    box-shadow:
+            0 20px 40px rgba(0, 0, 0, 0.6),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2),  /* Блик сверху */
+            inset 0 -1px 0 rgba(0, 0, 0, 0.4);       /* Тень снизу */
+
+    overflow: hidden;
+
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
+    box-shadow 0.3s ease,
+    border-color 0.3s ease,
+    background 0.3s ease;
+
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+
+/* --- ПРОЖЕКТОР (БЕЛЫЙ) --- */
+.card::before {
+    content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: inherit;
+    background: radial-gradient(
+            600px circle at var(--mouse-x) var(--mouse-y),
+            rgba(255, 255, 255, 0.08),
+            transparent 40%
+    );
+    z-index: 3; opacity: 0; transition: opacity 0.5s ease; pointer-events: none;
+}
+.card:hover::before { opacity: 1; }
+
+/* --- ХОВЕР ЭФФЕКТ (НЕОН) --- */
+a.card:hover, .social-btn:hover, .about-video:hover {
+    /* 1. Яркая желтая рамка */
+    border-color: var(--accent);
+
+    transform: translateY(-5px);
+
+    /* 2. ТЕНИ И СВЕЧЕНИЕ */
+    box-shadow:
+        /* Глубокая черная тень для отрыва от фона */
+            0 30px 60px rgba(0, 0, 0, 0.9),
+
+                /* 🔥 НЕОН СНИЗУ (Яркий и широкий) */
+            0 20px 50px -5px rgba(255, 238, 0, 0.35),
+
+                /* 🔥 ВНУТРЕННЕЕ СВЕЧЕНИЕ (Желтый свет внутри стекла снизу) */
+            inset 0 -20px 40px -10px rgba(255, 238, 0, 0.15),
+
+                /* Белый блик сверху (оставляет эффект стекла) */
+            inset 0 1px 0 rgba(255, 255, 255, 0.5);
+
+    z-index: 10;
+
+    /* Чуть затемняем фон, чтобы неон был контрастнее */
+    background: rgba(30, 30, 30, 0.5);
+}
+
+.accent-text { color: var(--accent); }
+
+/* Стрелка */
+.arrow-icon {
+    position: absolute; bottom: 20px; right: 20px;
+    font-size: 1.2rem; color: #fff; opacity: 0.4;
+    transition: all 0.3s ease; z-index: 5;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+a.card:hover .arrow-icon, .about-team-link:hover .arrow-icon {
+    opacity: 1; color: var(--accent);
+    transform: translateX(5px);
+    /* Стрелка тоже горит неоном */
+    text-shadow: 0 0 15px rgba(255, 238, 0, 0.8);
+}
+
+/* ========================================= */
+/* --- МЕНЮ --- */
+/* ========================================= */
+.grid-menu { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
+
+.social-btn {
+    min-height: 80px; padding: 15px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 0.95rem;
+}
+.social-btn span { position: relative; z-index: 4; display: flex; align-items: center; gap: 10px; }
+.btn-icon-img { width: 24px; height: 24px; object-fit: contain; }
+
+/* ========================================= */
+/* --- БЛОК "КТО МЫ" --- */
+/* ========================================= */
+.about-section {
+    align-items: flex-start; text-align: left;
+    gap: 20px; padding: 30px 30px 70px 30px;
+}
+
+.about-top { display: flex; flex-direction: row; width: 100%; gap: 25px; min-height: 220px; position: relative; z-index: 4; }
+.about-intro { flex: 1; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; text-align: center; padding-top: 15px; }
+
+.about-title-row { display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 15px; }
+.title-icon-wrap { width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; }
+.title-img { width: 100%; height: 100%; object-fit: contain; transform: rotate(-5deg); transition: transform 0.3s; }
+.about-section:hover .title-img { transform: rotate(0deg) scale(1.1); }
+.about-intro h2 { font-size: 2rem; margin: 0; color: #fff; }
+
+.about-slogan { font-size: 1.15rem; line-height: 1.5; color: var(--text-muted); font-weight: 500; }
+
+/* Видео превью */
+.about-video {
+    flex: 1; border-radius: 16px; overflow: hidden;
+    background: rgba(0,0,0,0.2); border: 1px solid var(--border-color);
+    min-height: 220px; padding: 10px; cursor: pointer; position: relative;
+    transition: all 0.3s;
+}
+.video-cover { width: 100%; height: 100%; position: relative; border-radius: 8px; overflow: hidden; }
+.video-cover img { width: 100%; height: 100%; object-fit: cover; opacity: 0.9; transition: opacity 0.3s; }
+.about-video:hover .video-cover img { opacity: 0.8; }
+
+/* Кнопка Play */
+.custom-play-btn {
+    position: absolute; bottom: 20px; right: 20px;
+    font-size: 24px; color: #fff; width: 60px; height: 60px;
+    background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; padding-left: 4px;
+    transition: all 0.3s;
+}
+.about-video:hover .custom-play-btn {
+    background: rgba(255, 238, 0, 0.2); border-color: var(--accent);
+    box-shadow: 0 0 20px rgba(255, 238, 0, 0.4); transform: scale(1.1);
+    color: var(--accent);
+}
+
+/* Описание */
+.about-description {
+    width: 100%; border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 25px;
+    color: var(--text-muted); font-size: 1.05rem; line-height: 1.7; position: relative; z-index: 4;
+}
+.about-description b { color: #fff; }
+
+/* Ссылка на команду */
+.about-team-link {
+    position: absolute; bottom: 25px; right: 25px;
+    display: flex; align-items: center; gap: 10px;
+    text-decoration: none; z-index: 10; transition: all 0.3s ease;
+}
+.about-team-text {
+    font-size: 1rem; font-weight: 700; color: rgba(255, 255, 255, 0.5);
+    transition: color 0.3s ease;
+}
+.about-team-link .arrow-icon { position: static; opacity: 0.5; color: #fff; transition: all 0.3s; }
+.about-team-link:hover .about-team-text { color: var(--accent); }
+
+/* ========================================= */
+/* --- ACTION CARDS --- */
+/* ========================================= */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+
+.action-card {
+    min-height: 160px; gap: 25px;
+    flex-direction: row; align-items: center; justify-content: flex-start;
+    padding: 30px; text-align: left;
+}
+
+.action-icon-wrap {
+    width: 70px; height: 70px; flex-shrink: 0;
+    background: rgba(255, 255, 255, 0.05); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+}
+.action-img { width: 36px; height: 36px; object-fit: contain; transition: transform 0.3s; }
+
+/* Ховер для иконки */
+a.card:hover .action-icon-wrap {
+    border-color: var(--accent);
+    background: rgba(255, 238, 0, 0.2);
+    box-shadow: 0 0 25px rgba(255, 238, 0, 0.4);
+    transform: scale(1.05);
+}
+a.card:hover .action-img { transform: scale(1.15) rotate(10deg); }
+
+.action-card h3 { font-size: 1.5rem; font-weight: 800; line-height: 1.1; margin: 0 0 8px 0; color: #fff; letter-spacing: 0px; }
+.card-content p { color: var(--text-muted); font-size: 1rem; margin: 0; line-height: 1.4; }
+
+/* ========================================= */
+/* --- МОБИЛЬНЫЕ СТИЛИ (Общие) --- */
+/* ========================================= */
+@media (max-width: 900px) {
+    /* 1. Настройка фона для мобильных: логотипы меньше и ярче */
+    .bg-pattern {
+        background-size: 150px auto; /* Меньше размер, чтобы влезло больше лого */
+        opacity: 0.20; /* Чуть ярче, чтобы было видно */
+    }
+
+    .grid-menu, .grid-2 { grid-template-columns: 1fr; }
+    .action-card { padding: 20px; min-height: auto; }
+    .about-top { flex-direction: column; }
+    .about-video { min-height: 250px; width: 100%; }
+    .about-intro { padding-top: 0; }
+}
