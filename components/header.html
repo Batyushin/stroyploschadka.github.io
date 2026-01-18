@@ -5,7 +5,7 @@
         min-height: 200px;
         padding: 25px;
 
-        display: flex; /* Добавил display flex для самой карточки, чтобы контент центрировался вертикально */
+        display: flex;
         align-items: center;
         justify-content: center;
 
@@ -42,9 +42,7 @@
 
     /* ЛОГОТИП */
     .main-logo-img {
-        /* --- ИЗМЕНЕНИЕ: УВЕЛИЧИЛ РАЗМЕР (было 240px) --- */
         max-width: 270px;
-
         filter: drop-shadow(0 0 15px rgba(255, 238, 0, 0.15));
         transition: filter 0.4s ease;
     }
@@ -63,7 +61,7 @@
 
     /* Тексты */
     .sp-title {
-        font-size: 2.8rem;
+        font-size: 2.8rem; /* Чуть увеличил для английского текста, чтобы смотрелось мощнее */
         font-weight: 900;
         color: #fff;
         margin: 0 0 5px 0;
@@ -72,7 +70,8 @@
     }
 
     .sp-desc {
-        color: var(--accent); /* Желтый цвет */
+        /* ИЗМЕНЕНИЕ: Сделали цвет сероватым (как у JanPro) */
+        color: var(--text-muted);
         font-size: 1rem;
         max-width: 500px;
         line-height: 1.4;
@@ -84,7 +83,7 @@
         .header-card {
             min-height: auto;
             padding: 30px 20px;
-            display: block; /* Сброс флекса на мобильных для нормального потока */
+            display: block;
         }
         .header-content {
             flex-direction: column;
@@ -94,8 +93,9 @@
         .header-col-logo {
             transform: none;
         }
+        /* Уменьшаем шрифт на мобильных, так как название длинное */
         .sp-title {
-            font-size: 2.2rem;
+            font-size: 1.8rem;
         }
     }
 </style>
@@ -108,7 +108,7 @@
             </a>
         </div>
         <div class="header-col-text">
-            <h1 class="sp-title">Стройплощадка</h1>
+            <h1 class="sp-title">Stroy-Ploschadka<span class="accent-text">.ru</span></h1>
             <p class="sp-desc">
                 Профессиональная сборка силовых щитов и автоматики.<br>
                 Проектирование. Комплектация. Монтаж.
